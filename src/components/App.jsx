@@ -6,11 +6,15 @@ function App() {
     itemName: ""
   });  
 
+  const [listItem, setListItem] = useState({
+    itemName: ""
+  });
+
   function handleChange(event){
     const {name, value} = event.target;
 
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     addItem((prevValue) => {
       return {
@@ -19,6 +23,12 @@ function App() {
       }
     })
   }
+
+  function buttonClick(){
+    setListItem(item);
+  }
+
+  console.log(listItem);
   return (
     <div className="container">
       <div className="heading">
@@ -26,17 +36,17 @@ function App() {
       </div>
       <div className="form">
         <input type="text"
-           name="inputText"
-          //  value={item.itemName}
+           name="itemName"
+           value={item.itemName}
            onChange={handleChange}
         />
-        <button>
+        <button onClick={buttonClick}>
           <span>Add</span>
         </button>
       </div>
       <div>
         <ul>
-          <li>{item.itemName}</li>
+          <li>{listItem.itemName}</li>
         </ul>
       </div>
     </div>
