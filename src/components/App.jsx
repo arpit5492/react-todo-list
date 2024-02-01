@@ -1,34 +1,30 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 function App() {
 
-  const [item, addItem] = useState({
-    itemName: ""
-  });  
+  const [item, addItem] = useState("");  
 
-  const [listItem, setListItem] = useState({
-    itemName: ""
-  });
+  const [listItems, setListItem] = useState([]);
 
   function handleChange(event){
-    const {name, value} = event.target;
+    const value = event.target.value;
 
-    // console.log(name);
-    // console.log(value);
-
-    addItem((prevValue) => {
-      return {
-        ...prevValue,
-        [name]: value
-      }
-    })
+    addItem(value);
   }
+
+  // console.log(item);
 
   function buttonClick(){
-    setListItem(item);
+    setListItem(prevItem => {
+      return [
+        ...prevItem,
+        item
+      ]
+    });
+    addItem("");
   }
 
-  console.log(listItem);
+  // console.log(listItems);
   return (
     <div className="container">
       <div className="heading">
@@ -37,7 +33,7 @@ function App() {
       <div className="form">
         <input type="text"
            name="itemName"
-           value={item.itemName}
+           value={item}
            onChange={handleChange}
         />
         <button onClick={buttonClick}>
@@ -46,7 +42,11 @@ function App() {
       </div>
       <div>
         <ul>
-          <li>{listItem.itemName}</li>
+          {listItems.map(itemlst => {
+            return (
+              <li key={itemlst}>{itemlst}</li>
+            )
+          })}
         </ul>
       </div>
     </div>
